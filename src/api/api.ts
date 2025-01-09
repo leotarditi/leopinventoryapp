@@ -55,6 +55,17 @@ const api = {
 
     return products;
   },
+  fetch: async (sku: Product["sku"]): Promise<Product> => {
+    const products = await api.list();
+
+    const product = products.find((product) => product.sku === sku);
+
+    if (!product) {
+      throw new Error(`Product with sku ${sku} not found`);
+    }
+
+    return product;
+  },
 };
 
 export default api;

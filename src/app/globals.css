@@ -16,15 +16,6 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-a {
-  color: var(--primary-color);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
 button {
   background-color: var(--primary-color);
   color: var(--secondary-color);

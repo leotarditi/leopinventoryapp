@@ -3,8 +3,12 @@ import ProductCard from "@/app/components/ProductCard";
 import api from "@/api/api";
 import Link from "next/link";
 
-export default async function ProductList() {
-  const products: Product[] = await api.list();
+interface Props {
+  query: string;
+}
+
+export default async function ProductList({ query }: Props) {
+  const products: Product[] = await api.search(query);
 
   return (
     <div className="container mx-auto">

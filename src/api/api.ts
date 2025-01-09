@@ -66,6 +66,15 @@ const api = {
 
     return product;
   },
+  search: async (query: string = ""): Promise<Product[]> => {
+    const products = await api.list();
+
+    return products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(query.toLowerCase()) ||
+        product.sku.toLowerCase().includes(query.toLowerCase()),
+    );
+  },
 };
 
 export default api;

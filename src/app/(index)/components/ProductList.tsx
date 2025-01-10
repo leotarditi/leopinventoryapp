@@ -1,23 +1,17 @@
 import { Product } from "@/model/product.model";
 import ProductCard from "@/app/components/ProductCard";
-import api from "@/api/api";
-import Link from "next/link";
 
 interface Props {
-  query: string;
+  products: Product[];
 }
 
-export default async function ProductList({ query }: Props) {
-  const products: Product[] = await api.search(query);
-
+export default async function ProductList({ products }: Props) {
   return (
     <div className="container mx-auto">
       {products.length ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products.map((product) => (
-            <Link key={product.sku} href={`/products/${product.sku}`}>
-              <ProductCard {...product} />
-            </Link>
+            <ProductCard key={product.sku} {...product} />
           ))}
         </div>
       ) : (

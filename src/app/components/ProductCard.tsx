@@ -1,3 +1,4 @@
+import Button from "@/components/Button/Button";
 import { Product } from "@/model/product.model";
 import Link from "next/link";
 
@@ -14,13 +15,15 @@ export default async function ProductCard({
   return (
     <article
       key={sku}
-      className={`${showLink ? "hover:scale-[1.02]" : ""} flex flex-col border rounded-lg shadow-lg shadow-[#fffade]/40 bg-white max-w-[400px] mx-auto`}
+      className={`flex flex-col border rounded-lg shadow-lg shadow-[#fffade]/40 bg-white max-w-[400px] mx-auto`}
     >
-      <img
-        alt={name}
-        className="mb-4 h-[300px] w-full object-cover rounded-t-lg"
-        src={image}
-      />
+      <Link href={`/products/${sku}`}>
+        <img
+          alt={name}
+          className="mb-4 h-[300px] w-full object-cover rounded-t-lg"
+          src={image}
+        />
+      </Link>
 
       <div className="flex flex-col p-4">
         <h2 className="text-lg font-bold text-[#000540] mb-2 line-clamp-1">
@@ -44,11 +47,8 @@ export default async function ProductCard({
             ${price.toFixed(2)}
           </p>
           {showLink && (
-            <Link
-              href={`/products/${sku}`}
-              className="text-sm text-[#fffade] bg-[#000540] hover:bg-[#000460] py-1 px-3 rounded"
-            >
-              Ver Detalle
+            <Link href={`/products/${sku}`}>
+              <Button type="primary">Ver Detalle</Button>
             </Link>
           )}
         </div>

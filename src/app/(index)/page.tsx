@@ -1,7 +1,9 @@
 import { Suspense } from "react";
 import ProductList from "./components/ProductList";
 import SearchBox from "./components/SearchBox";
-import ProductCardSkeleton from "../components/ProductCardSkeleton";
+import api from "@/api/api";
+import { Product } from "@/model/product.model";
+import ProductListSkeleton from "./components/ProductListSkeleton";
 
 export default async function Home({
   searchParams,
@@ -9,22 +11,13 @@ export default async function Home({
   searchParams: Promise<{ q: string }>;
 }) {
   const { q } = await searchParams;
+  const products: Product[] = await api.search(q);
 
   return (
     <section className="w-full">
       <SearchBox />
-      <Suspense
-        key={q}
-        fallback={
-          <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <ProductCardSkeleton />
-            <ProductCardSkeleton />
-            <ProductCardSkeleton className="hidden md:block" />
-            <ProductCardSkeleton className="hidden lg:block" />
-          </div>
-        }
-      >
-        <ProductList query={q} />
+      <Suspense key={q} fallback={<ProductListSkeleton />}>
+        <ProductList products={products} />
       </Suspense>
     </section>
   );

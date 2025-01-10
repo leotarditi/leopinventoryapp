@@ -1,0 +1,11 @@
+.button {
+  @apply text-sm text-[#fffade] bg-[#000540] hover:bg-[#000460] py-1 px-3 rounded cursor-pointer;
+}
+
+.secondary {
+  @apply text-[#000540] bg-[#fffade] hover:bg-[#000460] hover:text-[#fffade];
+}
+
+.cancel {
+  @apply text-white bg-red-500 hover:bg-red-700;
+}

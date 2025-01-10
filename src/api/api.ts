@@ -1,4 +1,5 @@
 import { Product } from "@/model/product.model";
+import { notFound } from "next/navigation";
 
 async function fetchProductsFromCSV(url: string): Promise<Product[]> {
   try {
@@ -41,7 +42,7 @@ async function fetchProductsFromCSV(url: string): Promise<Product[]> {
       });
 
     return products;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error processing CSV:", error);
     return [];
   }
@@ -61,7 +62,7 @@ const api = {
     const product = products.find((product) => product.sku === sku);
 
     if (!product) {
-      throw new Error(`Product with sku ${sku} not found`);
+      notFound();
     }
 
     return product;

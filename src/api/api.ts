@@ -1,61 +1,15 @@
 import { Product } from "@/model/product.model";
 import { notFound } from "next/navigation";
 
-async function fetchProductsFromCSV(url: string): Promise<Product[]> {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Error fetching CSV: ${response.statusText}`);
-    }
-
-    const text = await response.text();
-    const [headerRow, ...dataRows] = text.split("\n");
-
-    const headers = headerRow.split(",").map((header) => header.trim());
-
-    const products: Product[] = dataRows
-      .filter((row) => row.trim() !== "")
-      .map((row) => {
-        const values = row.split(",");
-
-        const product: Product = {
-          sku: values[headers.indexOf("sku")],
-          name: values[headers.indexOf("name")],
-          description: values[headers.indexOf("description")],
-          image: values[headers.indexOf("image")],
-          category: {
-            id: values[headers.indexOf("category_id")],
-            name: values[headers.indexOf("category_name")],
-          },
-          brand: values[headers.indexOf("brand")],
-          price: Number(values[headers.indexOf("price")]),
-          stock: Number(values[headers.indexOf("stock")]),
-          specifications: values[headers.indexOf("specifications")]
-            .split(";")
-            .map((spec) => {
-              const [name, value] = spec.split(": ");
-              return { name: name.trim(), value: value.trim() };
-            }),
-        };
-
-        return product;
-      });
-
-    return products;
-  } catch (error: any) {
-    console.error("Error processing CSV:", error);
-    return [];
-  }
-}
+const url = "http://localhost:3000";
 
 const api = {
   list: async (): Promise<Product[]> => {
-    const products = await fetchProductsFromCSV(
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vTBPlMZ42tCJkU3hmeA4FICatH2HoNDoFkn0X8GVhZYG55EIgDbhsCZykcT0zflOZ65dp5CxSfcdto4/pub?output=csv",
-    );
-
+    const response = await fetch(`${url}/api/products`);
+    const products = await response.json();
     return products;
   },
+
   fetch: async (sku: Product["sku"]): Promise<Product> => {
     const products = await api.list();
 
@@ -67,6 +21,7 @@ const api = {
 
     return product;
   },
+
   search: async (query: string = ""): Promise<Product[]> => {
     const products = await api.list();
 

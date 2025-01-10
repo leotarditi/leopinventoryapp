@@ -5,7 +5,7 @@ interface Props {
 export default function ProductCardSkeleton({ className }: Props) {
   return (
     <article
-      className={`${className} "flex flex-col border rounded-lg shadow-lg bg-gray-200 animate-pulse max-w-[400px] mx-auto"`}
+      className={`'flex flex-col border rounded-lg shadow-lg shadow-[#fffade]/40 bg-white max-w-[400px] mx-auto' ${className}`}
     >
       <div className="mb-4 h-[300px] w-full bg-gray-300 rounded-t-lg"></div>
 

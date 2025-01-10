@@ -12,16 +12,8 @@ export async function generateMetadata({
   return {
     title: `${product.name} - LeoPinventory`,
     description: product.description,
-    keywords: product.category.name,
+    keywords: [product.category.name, product.brand],
   };
-}
-
-export async function generateStaticParams() {
-  const products = await api.list();
-
-  return products.map((product) => ({
-    sku: product.sku,
-  }));
 }
 
 export default async function ProductPage({

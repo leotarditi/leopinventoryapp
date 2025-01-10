@@ -14,7 +14,7 @@ export default async function ProductCard({
   return (
     <article
       key={sku}
-      className="flex flex-col border rounded-lg shadow-lg bg-white max-w-[400px] mx-auto"
+      className={`${showLink ? "hover:scale-[1.02]" : ""} flex flex-col border rounded-lg shadow-lg shadow-[#fffade]/40 bg-white max-w-[400px] mx-auto`}
     >
       <img
         alt={name}

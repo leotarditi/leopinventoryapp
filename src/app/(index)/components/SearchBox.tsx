@@ -30,7 +30,7 @@ export default function SearchBox() {
   return (
     <div className="container mx-auto">
       <input
-        className="w-full rounded border p-2 mb-4"
+        className="w-full rounded border p-2 mb-4 text-[#000540]"
         placeholder="Buscar por SKU o nombre"
         type="text"
         value={query}
